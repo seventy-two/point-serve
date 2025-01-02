@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package point_server.v1;
+option go_package = "./point-server/v1";
+
+service PointService {
+    rpc AddPoints(AddPointsRequest) returns (AddPointsResponse);
+    rpc RemovePoints(RemovePointsRequest) returns (RemovePointsResponse);
+    rpc GetPoints(GetPointsRequest) returns (GetPointsResponse);
+    rpc GetLeaderboard(GetLeaderboardRequest) returns (GetLeaderboardResponse);
+}
+
+message AddPointsRequest {
+    string user_id = 1;
+    int32 points = 2;
+}
+
+message AddPointsResponse {
+    int32 updated_points = 1;
+}
+
+message RemovePointsRequest {
+    string user_id = 1;
+    int32 points = 2;
+}
+
+message RemovePointsResponse {
+    int32 updated_points = 1;
+}
+
+message GetPointsRequest {
+    string user_id = 1;
+}
+
+message GetPointsResponse {
+    int32 points = 1;
+}
+
+message GetLeaderboardRequest {
+    int32 top_n = 1;
+}
+
+message GetLeaderboardResponse {
+    repeated LeaderboardEntry entries = 1;
+}
+
+message LeaderboardEntry {
+    string user_id = 1;
+    int32 points = 2;
+}
